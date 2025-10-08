@@ -281,16 +281,100 @@ class TextAnimations {
     // WhatsApp phone number (remove spaces and special characters)
     const phoneNumber = "525527498383";
 
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-    // Show celebration animation
+    // Show celebration animation first
     this.celebrateSubmission();
 
     // Open WhatsApp after a short delay
     setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
+      this.openWhatsApp(phoneNumber, encodedMessage);
     }, 1000);
+  }
+
+  openWhatsApp(phoneNumber, encodedMessage) {
+    // Enhanced mobile detection
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) ||
+      typeof window.orientation !== "undefined" ||
+      navigator.userAgent.indexOf("IEMobile") !== -1;
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    if (isMobile) {
+      // For mobile devices, try multiple approaches
+      const appUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+      const webUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      // Method 1: Try to open app directly
+      const startTime = Date.now();
+
+      // Create a hidden link for iOS compatibility
+      const link = document.createElement("a");
+      link.href = appUrl;
+      link.style.display = "none";
+      document.body.appendChild(link);
+
+      // Try to open the app
+      if (isIOS) {
+        // iOS specific handling
+        link.click();
+        document.body.removeChild(link);
+
+        // Fallback for iOS if app not installed
+        setTimeout(() => {
+          if (Date.now() - startTime < 2000) {
+            window.open(webUrl, "_blank");
+          }
+        }, 1500);
+      } else if (isAndroid) {
+        // Android specific handling
+        try {
+          window.location.href = appUrl;
+          document.body.removeChild(link);
+
+          // Fallback for Android
+          setTimeout(() => {
+            window.open(webUrl, "_blank");
+          }, 2000);
+        } catch (e) {
+          document.body.removeChild(link);
+          window.open(webUrl, "_blank");
+        }
+      } else {
+        // Other mobile devices
+        document.body.removeChild(link);
+        window.open(webUrl, "_blank");
+      }
+    } else {
+      // Desktop handling
+      const webWhatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+      const mobileUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      // Try web WhatsApp first
+      const newWindow = window.open(webWhatsappUrl, "_blank");
+
+      // Provide alternative if web WhatsApp doesn't work
+      if (
+        !newWindow ||
+        newWindow.closed ||
+        typeof newWindow.closed == "undefined"
+      ) {
+        // If popup was blocked, use mobile version
+        window.open(mobileUrl, "_blank");
+      } else {
+        // Offer mobile alternative after a delay
+        setTimeout(() => {
+          const useMobile = confirm(
+            '💡 ¿No tienes WhatsApp Web? Haz clic en "Aceptar" para usar WhatsApp en tu teléfono móvil.'
+          );
+          if (useMobile) {
+            window.open(mobileUrl, "_blank");
+          }
+        }, 4000);
+      }
+    }
   }
 
   celebrateSubmission() {
@@ -361,8 +445,17 @@ class TextAnimations {
   }
 
   showSuccessMessage() {
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || typeof window.orientation !== "undefined";
+
     const message = document.createElement("div");
-    message.innerHTML = "¡Confirmación enviada! <br>📱 Abriendo WhatsApp...";
+    const messageText = isMobile
+      ? "¡Confirmación lista! <br>📱 Abriendo WhatsApp..."
+      : "¡Confirmación lista! <br>� Abriendo WhatsApp Web...";
+
+    message.innerHTML = messageText;
     message.style.position = "fixed";
     message.style.top = "50%";
     message.style.left = "50%";
