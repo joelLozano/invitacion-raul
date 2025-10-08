@@ -284,10 +284,22 @@ class TextAnimations {
     // Show celebration animation first
     this.celebrateSubmission();
 
-    // Open WhatsApp after a short delay
-    setTimeout(() => {
-      this.openWhatsApp(phoneNumber, encodedMessage);
-    }, 1000);
+    // Check if we need special handling for iOS Safari
+    const isIOSSafari =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+      /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isIOSSafari) {
+      // For iOS Safari, show immediate button since automatic opening is restricted
+      setTimeout(() => {
+        this.showWhatsAppButton(phoneNumber, encodedMessage);
+      }, 1500);
+    } else {
+      // For other browsers, try automatic opening
+      setTimeout(() => {
+        this.openWhatsApp(phoneNumber, encodedMessage);
+      }, 1000);
+    }
   }
 
   openWhatsApp(phoneNumber, encodedMessage) {
@@ -303,48 +315,76 @@ class TextAnimations {
     const isAndroid = /Android/.test(navigator.userAgent);
 
     if (isMobile) {
-      // For mobile devices, try multiple approaches
-      const appUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+      // For mobile devices, use different approaches
       const webUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-      // Method 1: Try to open app directly
-      const startTime = Date.now();
-
-      // Create a hidden link for iOS compatibility
-      const link = document.createElement("a");
-      link.href = appUrl;
-      link.style.display = "none";
-      document.body.appendChild(link);
-
-      // Try to open the app
       if (isIOS) {
-        // iOS specific handling
-        link.click();
-        document.body.removeChild(link);
+        // iOS Safari specific handling
+        // Safari blocks app URLs that aren't triggered directly by user interaction
+        // So we use wa.me which handles the app/web routing automatically
 
-        // Fallback for iOS if app not installed
-        setTimeout(() => {
-          if (Date.now() - startTime < 2000) {
+        // First, try to detect if we're in Safari
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+
+        if (isSafari) {
+          // For Safari, use wa.me directly as it handles the app detection
+          window.open(webUrl, "_blank");
+        } else {
+          // For other iOS browsers (like Chrome), try app URL first
+          const appUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+
+          try {
+            // Create iframe method for iOS Chrome
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = appUrl;
+            document.body.appendChild(iframe);
+
+            // Cleanup iframe after attempting to open app
+            setTimeout(() => {
+              document.body.removeChild(iframe);
+            }, 1000);
+
+            // Fallback to web version
+            setTimeout(() => {
+              window.open(webUrl, "_blank");
+            }, 1500);
+          } catch (e) {
+            // If iframe method fails, use web version
             window.open(webUrl, "_blank");
           }
-        }, 1500);
+        }
       } else if (isAndroid) {
-        // Android specific handling
-        try {
-          window.location.href = appUrl;
-          document.body.removeChild(link);
+        // Android handling
+        const appUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
 
-          // Fallback for Android
+        // Try intent URL for Android (more reliable)
+        const intentUrl = `intent://send?phone=${phoneNumber}&text=${encodedMessage}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+
+        try {
+          // Try app URL first
+          window.location.href = appUrl;
+
+          // Fallback to web version if app doesn't open
           setTimeout(() => {
             window.open(webUrl, "_blank");
           }, 2000);
         } catch (e) {
-          document.body.removeChild(link);
-          window.open(webUrl, "_blank");
+          // If direct method fails, try intent URL
+          try {
+            window.location.href = intentUrl;
+            setTimeout(() => {
+              window.open(webUrl, "_blank");
+            }, 2000);
+          } catch (e2) {
+            // Final fallback to web version
+            window.open(webUrl, "_blank");
+          }
         }
       } else {
-        // Other mobile devices
-        document.body.removeChild(link);
+        // Other mobile devices - use web version directly
         window.open(webUrl, "_blank");
       }
     } else {
@@ -375,6 +415,89 @@ class TextAnimations {
         }, 4000);
       }
     }
+  }
+
+  showWhatsAppButton(phoneNumber, encodedMessage) {
+    // Create a special button for iOS Safari
+    const webUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.position = "fixed";
+    buttonContainer.style.top = "50%";
+    buttonContainer.style.left = "50%";
+    buttonContainer.style.transform = "translate(-50%, -50%)";
+    buttonContainer.style.zIndex = "2000";
+    buttonContainer.style.textAlign = "center";
+    buttonContainer.style.background = "rgba(0,0,0,0.8)";
+    buttonContainer.style.padding = "30px";
+    buttonContainer.style.borderRadius = "20px";
+    buttonContainer.style.color = "white";
+    buttonContainer.style.maxWidth = "90%";
+    buttonContainer.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
+
+    buttonContainer.innerHTML = `
+      <div style="margin-bottom: 20px;">
+        <h3 style="margin: 0 0 10px 0; color: #4ecdc4;">¡Confirmación Lista! 🎉</h3>
+        <p style="margin: 0; font-size: 0.9em; opacity: 0.9;">Toca el botón para enviar tu confirmación por WhatsApp</p>
+      </div>
+      <button id="whatsappBtn" style="
+        background: linear-gradient(45deg, #25D366, #128C7E);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+        display: block;
+        width: 100%;
+      ">📱 Abrir WhatsApp</button>
+      <button id="closeBtn" style="
+        background: transparent;
+        color: #ccc;
+        border: 1px solid #666;
+        padding: 8px 20px;
+        font-size: 0.9em;
+        border-radius: 20px;
+        cursor: pointer;
+      ">Cerrar</button>
+    `;
+
+    document.body.appendChild(buttonContainer);
+
+    // Add button animations
+    const whatsappBtn = buttonContainer.querySelector("#whatsappBtn");
+    const closeBtn = buttonContainer.querySelector("#closeBtn");
+
+    whatsappBtn.addEventListener("mouseover", function () {
+      this.style.transform = "translateY(-2px) scale(1.02)";
+      this.style.boxShadow = "0 8px 25px rgba(37, 211, 102, 0.4)";
+    });
+
+    whatsappBtn.addEventListener("mouseout", function () {
+      this.style.transform = "translateY(0) scale(1)";
+      this.style.boxShadow = "0 5px 15px rgba(37, 211, 102, 0.3)";
+    });
+
+    // Handle button clicks
+    whatsappBtn.addEventListener("click", () => {
+      window.open(webUrl, "_blank");
+      document.body.removeChild(buttonContainer);
+    });
+
+    closeBtn.addEventListener("click", () => {
+      document.body.removeChild(buttonContainer);
+    });
+
+    // Auto-close after 15 seconds
+    setTimeout(() => {
+      if (buttonContainer.parentNode) {
+        document.body.removeChild(buttonContainer);
+      }
+    }, 15000);
   }
 
   celebrateSubmission() {
