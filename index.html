@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎉 Invitación de Cumpleaños - Raulito 🎂</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="photo-section">
+        <div class="photo-placeholder">
+          <img
+            src="https://via.placeholder.com/120x80?text=🎂+Pastel"
+            alt="Foto 1"
+            width="120"
+            height="80"
+          />
+        </div>
+      </div>
+
+      <div class="name-section">
+        <h1 class="name-crayon">Raúl</h1>
+        <p class="subtitle-cumple">mi cumpleaños</p>
+      </div>
+
+      <div class="invitation-section">
+        <h2 class="invite-text-turquesa">¡Te invito a festejar</h2>
+        <h2 class="invite-text-amarillo">mi cumpleaños!</h2>
+      </div>
+      <div class="event-info">
+        <div class="date-section">
+          <div class="date-number">15</div>
+          <div class="date-month">noviembre</div>
+        </div>
+        <div class="time-location">
+          <div class="time">5:00 PM</div>
+          <div class="countdown-container">
+            <div class="countdown-title">¡Faltan:</div>
+            <div class="countdown" id="countdown">
+              <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Días</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Horas</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Min</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seg</span>
+              </div>
+            </div>
+          </div>
+          <div class="location">Calle Fiestas 123<br />Ciudad, País</div>
+        </div>
+      </div>
+
+      <button
+        onclick="window.open('https://www.google.com/maps/place/Tu+Dirección+Aquí', '_blank')"
+      >
+        📍 Ver ubicación en Google Maps
+      </button>
+
+      <h2>🎊 Detalles de la fiesta</h2>
+      <ul>
+        <li>🍰 Habrá comida deliciosa, pastel y juegos divertidos</li>
+        <li>😄 Trae muchas ganas de divertirte y celebrar</li>
+        <li>🏠 Dirección: Calle Fiestas 123, Ciudad, País</li>
+      </ul>
+
+      <h2>📸 Fotos de la celebración</h2>
+      <div class="photos">
+        <img
+          src="https://via.placeholder.com/120x80?text=🎂+Pastel"
+          alt="Foto 1"
+          width="120"
+          height="80"
+        />
+        <img
+          src="https://via.placeholder.com/120x80?text=🎈+Globos"
+          alt="Foto 2"
+          width="120"
+          height="80"
+        />
+        <img
+          src="https://via.placeholder.com/120x80?text=🎉+Fiesta"
+          alt="Foto 3"
+          width="120"
+          height="80"
+        />
+      </div>
+
+      <h2>✉️ Confirma tu asistencia</h2>
+      <form id="attendanceForm">
+        <label for="nombre">👤 Nombre:</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          required
+          placeholder="Escribe tu nombre aquí..."
+        />
+
+        <label>
+          <input type="radio" name="asistencia" value="Sí" required /> 🎉 ¡Sí,
+          asistiré!
+        </label>
+        <label>
+          <input type="radio" name="asistencia" value="No" /> 😔 No podré ir
+        </label>
+
+        <button type="submit">🎊 Confirmar asistencia</button>
+      </form>
+    </div>
+
+    <script src="js/animations.js"></script>
+  </body>
+</html>
