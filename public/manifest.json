@@ -1,0 +1,35 @@
+{
+  "name": "Cumpleaños de Raúl - Invitación",
+  "short_name": "Cumpleaños Raúl",
+  "description": "¡Estás invitado al cumpleaños de Raúl! 🎉 Sábado 22 de Noviembre",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#b8e6e1",
+  "theme_color": "#4ecdc4",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/img3.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "lang": "es",
+  "categories": ["events", "social"],
+  "screenshots": [
+    {
+      "src": "assets/img3.jpeg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "platform": "wide",
+      "label": "Invitación al cumpleaños de Raúl"
+    }
+  ]
+}

@@ -731,7 +731,7 @@ label:has(input[type="radio"]):hover {
 
   .photos img {
     width: 180px;
-    height: 200px;
+    height: 250px;
   }
 }
 
@@ -764,4 +764,81 @@ label:has(input[type="radio"]):hover {
   font-size: 1.2em;
   font-weight: bold;
   margin: 0;
+}
+
+/* Share section styles */
+.share-section {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.share-section h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.share-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 200px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-share {
+  background: linear-gradient(45deg, #25d366, #128c7e);
+  color: white;
+}
+
+.whatsapp-share:hover {
+  background: linear-gradient(45deg, #1fa851, #0e6b5c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.general-share {
+  background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+  color: white;
+}
+
+.general-share:hover {
+  background: linear-gradient(45deg, #3bb5ac, #3a9bc1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.share-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive para botones de compartir */
+@media (max-width: 600px) {
+  .share-button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .share-section {
+    padding: 20px;
+  }
 }

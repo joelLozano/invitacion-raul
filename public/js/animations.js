@@ -778,3 +778,64 @@ countdownStyle.textContent = `
     }
 `;
 document.head.appendChild(countdownStyle);
+
+// Función para compartir la invitación
+function shareInvitation() {
+  const shareData = {
+    title: "🎉 Invitación Cumpleaños de Raúl 🎂",
+    text: "¡Estás invitado al cumpleaños de Raúl! 🎉 Sábado 22 de Noviembre - Misa 10:00 AM y Fiesta 12:00 PM. ¡No te lo pierdas!",
+    url: window.location.href,
+  };
+
+  // Si el navegador soporta Web Share API
+  if (navigator.share) {
+    navigator
+      .share(shareData)
+      .then(() => console.log("Invitación compartida exitosamente"))
+      .catch((err) => console.log("Error al compartir:", err));
+  } else {
+    // Fallback para navegadores que no soportan Web Share API
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+      shareData.text + " " + shareData.url
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  }
+}
+
+// Función específica para compartir por WhatsApp
+function shareOnWhatsApp() {
+  const message =
+    "🎉 ¡Estás invitado al cumpleaños de Raúl! 🎂\n\n" +
+    "📅 Sábado 22 de Noviembre\n" +
+    "⛪️ Misa: 10:00 AM\n" +
+    "🎉 Fiesta: 12:00 PM\n\n" +
+    "¡No te lo pierdas! Ve todos los detalles aquí: " +
+    window.location.href;
+
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, "_blank");
+}
+
+// Mejorar metadatos dinámicamente cuando se carga la página
+document.addEventListener("DOMContentLoaded", function () {
+  // Actualizar la URL en los meta tags si estamos en un servidor
+  if (window.location.protocol !== "file:") {
+    const currentUrl = window.location.href;
+    const imagePath = window.location.origin + "/public/assets/img3.jpeg";
+
+    // Actualizar meta tags
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = currentUrl;
+
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) ogImage.content = imagePath;
+
+    const ogImageSecure = document.querySelector(
+      'meta[property="og:image:secure_url"]'
+    );
+    if (ogImageSecure) ogImageSecure.content = imagePath;
+
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage) twitterImage.content = imagePath;
+  }
+});

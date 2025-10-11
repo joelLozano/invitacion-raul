@@ -23,16 +23,26 @@
       property="og:description"
       content="¡Estás invitado al cumpleaños de Raúl! 🎉 Sábado 22 de Noviembre - Misa 10:00 AM y Fiesta 12:00 PM. ¡No te lo pierdas!"
     />
-    <meta
-      property="og:image"
-      content="https://YOUR_DOMAIN/public/assets/img3.jpeg"
-    />
+    <meta property="og:image" content="./public/assets/img3.jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Invitación al cumpleaños de Raúl" />
-    <meta property="og:url" content="https://YOUR_DOMAIN/" />
+    <meta
+      property="og:image:alt"
+      content="Invitación al cumpleaños de Raúl - Foto de la celebración"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:url" content="" />
     <meta property="og:site_name" content="Cumpleaños de Raúl" />
     <meta property="og:locale" content="es_ES" />
+
+    <!-- Meta tags específicos para WhatsApp -->
+    <meta property="og:image:secure_url" content="./public/assets/img3.jpeg" />
+    <meta name="theme-color" content="#4ecdc4" />
+    <meta name="msapplication-TileColor" content="#4ecdc4" />
+
+    <!-- Meta tags adicionales para mejor compartir -->
+    <meta property="article:author" content="Raúl" />
+    <meta property="og:updated_time" content="2025-10-11T00:00:00Z" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -41,17 +51,28 @@
       name="twitter:description"
       content="¡Estás invitado al cumpleaños de Raúl! 🎉 Sábado 22 de Noviembre - Misa 10:00 AM y Fiesta 12:00 PM. ¡No te lo pierdas!"
     />
+    <meta name="twitter:image" content="./public/assets/img3.jpeg" />
     <meta
-      name="twitter:image"
-      content="https://YOUR_DOMAIN/public/assets/img3.jpeg"
+      name="twitter:image:alt"
+      content="Invitación al cumpleaños de Raúl - Foto de la celebración"
     />
-    <meta name="twitter:image:alt" content="Invitación al cumpleaños de Raúl" />
 
-    <!-- Favicon -->
+    <!-- Meta tags adicionales para WhatsApp y otras apps -->
+    <meta name="apple-mobile-web-app-title" content="Cumpleaños Raúl" />
+    <meta name="application-name" content="Cumpleaños Raúl" />
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Favicon y PWA -->
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>"
     />
+    <link rel="manifest" href="public/manifest.json" />
+    <link rel="apple-touch-icon" href="public/assets/img3.jpeg" />
+
+    <!-- Preload importante para mejorar velocidad -->
+    <link rel="preload" href="public/assets/img3.jpeg" as="image" />
 
     <link rel="stylesheet" href="public/css/styles.css" />
   </head>
