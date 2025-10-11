@@ -281,24 +281,23 @@ class TextAnimations {
     // WhatsApp phone number (remove spaces and special characters)
     const phoneNumber = "525527498383";
 
-    // Show celebration animation first
-    this.celebrateSubmission();
+    // Enhanced iOS detection
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSSafari = isIOS && isSafari;
 
-    // Check if we need special handling for iOS Safari
-    const isIOSSafari =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-      /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    // Show celebration first
+    this.celebrateSubmission();
 
     if (isIOSSafari) {
       // For iOS Safari, show immediate button since automatic opening is restricted
-      setTimeout(() => {
-        this.showWhatsAppButton(phoneNumber, encodedMessage);
-      }, 1500);
+      // No setTimeout to preserve user gesture
+      this.showWhatsAppButton(phoneNumber, encodedMessage);
     } else {
-      // For other browsers, try automatic opening
+      // For other browsers, try automatic opening with minimal delay
       setTimeout(() => {
         this.openWhatsApp(phoneNumber, encodedMessage);
-      }, 1000);
+      }, 500);
     }
   }
 
@@ -484,7 +483,33 @@ class TextAnimations {
 
     // Handle button clicks
     whatsappBtn.addEventListener("click", () => {
-      window.open(webUrl, "_blank");
+      // For iOS Safari, try multiple methods to ensure WhatsApp opens
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+      if (isIOS) {
+        // Method 1: Try app URL scheme first
+        const appUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+
+        try {
+          // Direct navigation for iOS
+          window.location.href = appUrl;
+
+          // Fallback to web version after short delay if app doesn't open
+          setTimeout(() => {
+            // Check if we're still on the page (app didn't open)
+            if (!document.hidden) {
+              window.location.href = webUrl;
+            }
+          }, 1000);
+        } catch (e) {
+          // If app URL fails, use web version
+          window.location.href = webUrl;
+        }
+      } else {
+        // For non-iOS devices, use window.open
+        window.open(webUrl, "_blank");
+      }
+
       document.body.removeChild(buttonContainer);
     });
 
