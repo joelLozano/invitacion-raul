@@ -267,6 +267,8 @@ class TextAnimations {
     // Create WhatsApp message
     let mensaje = `🎉 *Confirmación de Asistencia - Cumpleaños de Raúl* 🎂\n\n`;
 
+    mensaje += `👤 *Nombre:* ${nombre}\n\n`;
+
     if (asistencia === "Sí") {
       mensaje += `✅ *Confirmación:* ¡SÍ ASISTIRÉ! 🎉\n\n`;
       mensaje += `¡Nos vemos en la fiesta! 🥳🎈`;
