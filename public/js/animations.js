@@ -424,16 +424,16 @@ class TextAnimations {
 
     const buttonContainer = document.createElement("div");
     buttonContainer.style.position = "fixed";
-    buttonContainer.style.top = "65%";
-    buttonContainer.style.left = "65%";
+    buttonContainer.style.top = "50%";
+    buttonContainer.style.left = "50%";
     buttonContainer.style.transform = "translate(-50%, -50%)";
     buttonContainer.style.zIndex = "2000";
     buttonContainer.style.textAlign = "center";
     buttonContainer.style.background = "rgba(0,0,0,0.8)";
-    buttonContainer.style.padding = "30px";
+    buttonContainer.style.padding = "20px";
     buttonContainer.style.borderRadius = "20px";
     buttonContainer.style.color = "white";
-    buttonContainer.style.maxWidth = "95%";
+    buttonContainer.style.maxWidth = "100%";
     buttonContainer.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
 
     buttonContainer.innerHTML = `
