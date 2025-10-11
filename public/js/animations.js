@@ -279,7 +279,7 @@ class TextAnimations {
     const encodedMessage = encodeURIComponent(mensaje);
 
     // WhatsApp phone number (remove spaces and special characters)
-    const phoneNumber = "525527498383";
+    const phoneNumber = "525525001623";
 
     // Enhanced iOS detection
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
