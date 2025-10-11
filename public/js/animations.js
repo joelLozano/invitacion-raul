@@ -424,8 +424,8 @@ class TextAnimations {
 
     const buttonContainer = document.createElement("div");
     buttonContainer.style.position = "fixed";
-    buttonContainer.style.top = "50%";
-    buttonContainer.style.left = "50%";
+    buttonContainer.style.top = "65%";
+    buttonContainer.style.left = "65%";
     buttonContainer.style.transform = "translate(-50%, -50%)";
     buttonContainer.style.zIndex = "2000";
     buttonContainer.style.textAlign = "center";
@@ -433,12 +433,11 @@ class TextAnimations {
     buttonContainer.style.padding = "30px";
     buttonContainer.style.borderRadius = "20px";
     buttonContainer.style.color = "white";
-    buttonContainer.style.maxWidth = "90%";
+    buttonContainer.style.maxWidth = "95%";
     buttonContainer.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
 
     buttonContainer.innerHTML = `
       <div style="margin-bottom: 20px;">
-        <h3 style="margin: 0 0 10px 0; color: #4ecdc4;">¡Confirmación Lista! 🎉</h3>
         <p style="margin: 0; font-size: 0.9em; opacity: 0.9;">Toca el botón para enviar tu confirmación por WhatsApp</p>
       </div>
       <button id="whatsappBtn" style="
