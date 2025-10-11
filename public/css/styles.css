@@ -749,3 +749,19 @@ label:has(input[type="radio"]):hover {
   border-radius: 22px;
   z-index: -1;
 }
+
+.parents {
+  display: flex;
+  gap: 15px;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.parents h3 {
+  color: white;
+}
+
+.parents p {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+}
