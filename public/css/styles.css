@@ -750,20 +750,120 @@ label:has(input[type="radio"]):hover {
   z-index: -1;
 }
 
-.parents {
-  display: flex;
-  gap: 15px;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-.parents h3 {
-  color: white;
+/* Family section styles */
+.family-section {
+  margin: 40px 0;
+  padding: 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
-.parents p {
-  font-size: 1.2em;
-  font-weight: bold;
+.parents-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.parent-group {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.parent-group:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.parent-title {
+  color: #ffffff;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: "Kalam", cursive;
+}
+
+.parent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.parent-name {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  color: #ffffff;
+  font-size: 1.1em;
+  font-weight: 600;
   margin: 0;
+  padding: 12px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.parent-name:hover {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2)
+  );
+  transform: scale(1.02);
+}
+
+/* Responsive design for family section */
+@media (max-width: 768px) {
+  .parents-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .family-section {
+    padding: 20px;
+    margin: 30px 0;
+  }
+
+  .parent-group {
+    padding: 20px;
+  }
+
+  .parent-title {
+    font-size: 1.2em;
+  }
+
+  .parent-name {
+    font-size: 1em;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .parent-name {
+    font-size: 0.95em;
+    padding: 8px 10px;
+  }
 }
 
 /* Share section styles */
