@@ -721,9 +721,9 @@ class CountdownTimer {
 
 // Initialize countdown when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Set the target date - November 15, 2025 at 5:00 PM
+  // Set the target date - November 22, 2025 at 10:00 AM
   // You can change this date as needed
-  const targetDate = "November 15, 2025 17:00:00";
+  const targetDate = "November 22, 2025 10:00:00";
   new CountdownTimer(targetDate);
 });
 s;

@@ -38,18 +38,25 @@ body {
 .photo-placeholder {
   width: 200px;
   height: 200px;
-  border: 3px dashed #17a2b8;
+  /* border: 3px dashed #17a2b8; */
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: #ffffff;
+  /* background: #ffffff; */
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
   animation: photoFloat 3s ease-in-out infinite;
+}
+
+.photo-placeholder img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .photo-placeholder:hover {
@@ -207,13 +214,13 @@ body {
   /* background: linear-gradient(45deg, #fed7aa 0%, #fde68a 100%); */
   color: #ffffff;
   display: inline-block;
-  padding: 10px 30px;
+  padding: 5px 5px;
   border-radius: 15px;
-  margin: 10px 0;
+  margin: 5px 0;
   transform: rotate(-2deg);
   animation: bounceIn 1s ease-out 1s forwards;
   opacity: 0;
-  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+  /* box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3); */
 }
 
 /* Event info section */
@@ -723,8 +730,8 @@ label:has(input[type="radio"]):hover {
   }
 
   .photos img {
-    width: 100px;
-    height: 66px;
+    width: 180px;
+    height: 200px;
   }
 }
 
